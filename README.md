@@ -4,6 +4,14 @@ End-to-end data analytics project: raw e-commerce data → SQL cleaning & analys
 
 ---
 
+## 🖥️ Dashboard Preview
+
+<p align="center">
+  <img src="dashboard/dashboard_screenshot.png" alt="E-Commerce Dashboard Preview" width="100%">
+</p>
+
+---
+
 ## 📊 Project Overview
 
 This project analyzes an e-commerce dataset containing customer, order, line item, and product details to solve core business questions regarding revenue growth, profitability, customer retention, and payment/discount performance.
@@ -20,7 +28,7 @@ All data cleaning and transformation workflows were executed entirely within **M
 
 ---
 
-## 🛠️ Tools Used
+## 🛠️️ Tools Used
 
 - **MySQL:** Bulk data loading, data cleaning, relational schema transformations, and business metric calculations.
 - **Power BI:** Interactive analytical dashboards, custom DAX measures, and cross-tool data validation.
