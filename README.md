@@ -97,28 +97,20 @@ ecommerce-sales-analytics/
 └── dashboard/
     ├── ecommerce_dashboard.pbix
     └── dashboard_screenshot.png
-
-    🔍 How to Reproduce
-Run sql/01_create_tables.sql to create the schema.
-
-Update the file paths inside sql/02_load_data.sql to point to your local copy of the files in data/raw/.
-
-Run sql/02_load_data.sql, then sql/03_foreign_keys.sql.
-
-Run the queries in sql/04_analysis_queries.sql to reproduce the analysis.
-
-Open dashboard/ecommerce_dashboard.pbix in Power BI Desktop and point the MySQL connection to your local instance.
-
-👤 Author
+---
+## 🔍 How to Reproduce
+         Run sql/01_create_tables.sql to create the schema.
+         Update the file paths inside sql/02_load_data.sql to point to your local copy of the files in data/raw/.
+         Run sql/02_load_data.sql, then sql/03_foreign_keys.sql.
+         Run the queries in sql/04_analysis_queries.sql to reproduce the analysis.
+         Open dashboard/ecommerce_dashboard.pbix in Power BI Desktop and point the MySQL connection to your local instance.
+---
+## 👤 Author
 Vanitha N
-
 Data Analyst | SQL | Power BI | Python | Excel
-
-LinkedIn: vanitha-data-analyst
-
+LinkedIn: [[vanitha-data-analyst](https://www.linkedin.com/in/vanitha-data-analyst/)](https://www.linkedin.com/in/vanitha-data-analyst/?isSelfProfile=true)
 Email: vanithavijay2103@gmail.com
-
-GitHub: vanitha-2103
+GitHub: [vanitha-2103](https://github.com/vanitha-2103)
 
 
     
