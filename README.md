@@ -106,11 +106,12 @@ ecommerce-sales-analytics/
          Open dashboard/ecommerce_dashboard.pbix in Power BI Desktop and point the MySQL connection to your local instance.
 ---
 ## 👤 Author
-Vanitha N
-Data Analyst | SQL | Power BI | Python | Excel
-LinkedIn: [[vanitha-data-analyst](https://www.linkedin.com/in/vanitha-data-analyst/)](https://www.linkedin.com/in/vanitha-data-analyst/?isSelfProfile=true)
-Email: vanithavijay2103@gmail.com
-GitHub: [vanitha-2103](https://github.com/vanitha-2103)
+**Vanitha N**  
+*Data Analyst | SQL | Power BI | Python | Excel*  
+
+* **LinkedIn:** [Vanitha N LinkedIn Profile](https://www.linkedin.com/in/vanitha-data-analyst/)  
+* **Email:** vanithavijay2103@gmail.com  
+* **GitHub:** [vanitha-2103](https://github.com/vanitha-2103)
 
 
     
