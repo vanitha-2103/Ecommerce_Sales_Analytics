@@ -99,11 +99,12 @@ ecommerce-sales-analytics/
     └── dashboard_screenshot.png
 ---
 ## 🔍 How to Reproduce
-         Run sql/01_create_tables.sql to create the schema.
-         Update the file paths inside sql/02_load_data.sql to point to your local copy of the files in data/raw/.
-         Run sql/02_load_data.sql, then sql/03_foreign_keys.sql.
-         Run the queries in sql/04_analysis_queries.sql to reproduce the analysis.
-         Open dashboard/ecommerce_dashboard.pbix in Power BI Desktop and point the MySQL connection to your local instance.
+
+1. Run `sql/01_create_tables.sql` to create the schema.
+2. Update the file paths inside `sql/02_load_data.sql` to point to your local copy of the files in `data/raw/`.
+3. Run `sql/02_load_data.sql`, then `sql/03_foreign_keys.sql`.
+4. Run the queries in `sql/04_analysis_queries.sql` to reproduce the analysis.
+5. Open `dashboard/ecommerce_dashboard.pbix` in Power BI Desktop and point the MySQL connection to your local instance.
 ---
 ## 👤 Author
 **Vanitha N**  
