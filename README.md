@@ -28,7 +28,7 @@ All data cleaning and transformation workflows were executed entirely within **M
 
 ---
 
-## 🛠️️ Tools Used
+## 🛠 Tools Used
 
 - **MySQL:** Bulk data loading, data cleaning, relational schema transformations, and business metric calculations.
 - **Power BI:** Interactive analytical dashboards, custom DAX measures, and cross-tool data validation.
@@ -97,3 +97,6 @@ ecommerce-sales-analytics/
 └── dashboard/
     ├── ecommerce_dashboard.pbix
     └── dashboard_screenshot.png
+
+
+    
