@@ -1,54 +1,78 @@
-E-Commerce Sales & Customer Analytics
+# 🛒 E-Commerce Sales & Customer Analytics
 
-End-to-end analytics project: raw e-commerce data → SQL cleaning & analysis → Power BI dashboard.
+End-to-end data analytics project: raw e-commerce data → SQL cleaning & analysis → Power BI dashboard.
 
-📊 Project Overview
+---
 
-This project analyzes an e-commerce dataset (customers, orders, order line items, and products) to answer core business questions around revenue, profitability, customer retention, and payment/discount behavior. All data cleaning and transformation was done in SQL (not in Excel or pandas), so the entire pipeline is reproducible directly from the raw CSV files.
+## 📊 Project Overview
 
-🗂️ Dataset
-4 tables: customers, orders, order_items, products
-Scale: ~9,200 orders, ~15,600 order line items, 2,047 customers, 90 products
-Raw files: available in /data/raw/ (uncleaned, as originally received)
-🛠️ Tools Used
-MySQL — data loading, cleaning, transformation, business logic
-Power BI — dashboard, DAX measures, cross-tool validation
-Excel — used only for initial raw file inspection and duplicate verification, not for cleaning
+This project analyzes an e-commerce dataset containing customer, order, line item, and product details to solve core business questions regarding revenue growth, profitability, customer retention, and payment/discount performance.
 
-🧹 Data Cleaning — done entirely in SQL
-Raw data was loaded as-is and cleaned using SQL, so every transformation is a reproducible, auditable query rather than a manual spreadsheet edit. Key issues handled:
+All data cleaning and transformation workflows were executed entirely within **MySQL** (avoiding manual Excel or Python operations) to ensure the full data pipeline is reproducible directly from the raw CSV files provided in this repository.
 
-                   Issue	                                                                    Fix
-Import Wizard silently dropped/hung on large files	    Switched to LOAD DATA LOCAL INFILE for all bulk loads
-local_infile disabled (Error 3948)	                    Enabled on both server (SET GLOBAL local_infile=1) and client (Workbench Advanced settings)
-38 duplicate order_id rows (Error 1062)                	Verified as exact duplicates via Excel COUNTIF, then let the PRIMARY KEY constraint reject them
-199 blank unit_price values (Error 1366)	              Converted to NULL using NULLIF() during load, instead of letting MySQL silently default them to 0 (which                                                           would have understated revenue/profit)
-Inconsistent category casing 
-(Kitchen / kitchen / KITCHEN)                           Standardized to Title Case during load using TRIM, UPPER, LOWER
-product_name truncation (Error 1265)	                  Increased VARCHAR length after diagnosing the warning
+---
 
-Full detail in sql/02_load_data.sql and sql/03_foreign_keys.sql.
+## 🗂️ Dataset Architecture
 
-📈 Key Insights
-Pareto pattern: Just 25% of customers (loyal, 5+ orders) generate 65% of total revenue, while one-time buyers (35.6% of customers) generate only ~8%.
-Revenue ≠ profit: Furniture leads in total revenue ($325K), but Storage has the highest profit margin (56.5%) despite lower revenue — category rankings shift once cost is factored in.
-Seasonality: November is the peak revenue month in both 2024 and 2025, ~40-50% above surrounding months.
-Counter-intuitive discount finding: Orders with a discount code had a lower average order value ($128) than orders without one ($136) — suggesting the current discount strategy isn't driving larger baskets.
-Payment concentration: Credit card accounts for 57% of revenue, more than double all other payment methods combined.
-Cross-tool validation: A profit-margin discrepancy between SQL (NULL-safe) and Power BI/DAX (treats blank as 0) was traced to the 199 missing-price rows and corrected in the DAX measure to match SQL.
+- **Scale:** ~9,200 orders · ~15,600 order line items · 2,047 customers · 90 products
+- **Tables:** `customers`, `orders`, `order_items`, `products`
+- **Raw Data Path:** `data/raw/`
 
-🖥️ Dashboard
+---
 
+## 🛠️ Tools Used
 
-The Power BI dashboard includes:
-KPI cards (Total Revenue, Profit, Margin %, Orders, Customers, AOV, Return Rate, Repeat Customer %)
-Monthly revenue trend (by year)
-Revenue & profit by category
-Top 10 products by revenue
-Customer segmentation (revenue by loyalty tier)
-Revenue by payment method
-📁 Repo Structure
-ecommerce-analytics-project/
+- **MySQL:** Bulk data loading, data cleaning, relational schema transformations, and business metric calculations.
+- **Power BI:** Interactive analytical dashboards, custom DAX measures, and cross-tool data validation.
+- **Microsoft Excel:** Initial data inspection and preliminary duplicate verification prior to database ingestion.
+
+---
+
+## 🧹 Data Cleaning & Pipeline Resolution
+
+Raw files were loaded as-is and sanitized using SQL scripts. Every transformation is fully auditable and reproducible.
+
+| Data Issue | Root Cause | SQL Engineering Solution |
+| :--- | :--- | :--- |
+| **Import Wizard Drop/Hang** | Large file size limit exceeded | Replaced wizard with optimized `LOAD DATA LOCAL INFILE` queries. |
+| **Error 3948 (`local_infile`)** | Server & client security restrictions | Enabled globally on server (`SET GLOBAL local_infile=1`) and updated Workbench client configuration. |
+| **Error 1062 (Duplicate Rows)** | 38 duplicate `order_id` records | Validated exact duplicates via Excel `COUNTIF`, then enforced `PRIMARY KEY` constraints during ingestion to reject duplicates. |
+| **Error 1366 (Blank Prices)** | 199 missing `unit_price` entries | Applied `NULLIF()` during bulk load to convert blank strings to `NULL`, preventing default `0` values from corrupting revenue metrics. |
+| **Inconsistent Categorization** | Mixed case casing (`Kitchen`, `kitchen`, `KITCHEN`) | Standardized text into Title Case formatting during bulk load using `TRIM`, `UPPER`, and `LOWER` functions. |
+| **Error 1265 (Data Truncation)** | `product_name` exceeded column length | Diagnosed SQL warnings and updated `VARCHAR` column lengths prior to re-ingestion. |
+
+> *Full pipeline execution details are available in `sql/02_load_data.sql` and `sql/03_foreign_keys.sql`.*
+
+---
+
+## 📈 Key Business Insights
+
+* **Customer Pareto Principle:** 25% of customers (loyal segment, 5+ orders) generate 65% of total revenue. One-time buyers comprise 35.6% of the customer base but account for only ~8% of total revenue.
+* **Revenue vs. Profitability Discrepancy:** The **Furniture** category leads in gross revenue ($325K), but **Storage** generates the highest profit margin (56.5%) despite lower overall sales volume.
+* **Seasonal Demand Signals:** November represents the peak sales month across both 2024 and 2025, generating ~40–50% higher revenue compared to surrounding months.
+* **Discount Strategy Performance:** Discounted orders produced a lower Average Order Value (**$128**) compared to non-discounted orders (**$136**), indicating that current promotions are not increasing basket sizes.
+* **Payment Preference:** Credit Card transactions drive 57% of total revenue, generating more than double the volume of all other payment options combined.
+* **Cross-Tool Metric Validation:** Identified a profit-margin discrepancy between SQL and Power BI caused by DAX handling `BLANK` values as `0`. Reconciled the DAX measure to handle `NULL` values consistently with SQL using the 199 missing-price rows.
+
+---
+
+## 🖥️ Dashboard Architecture
+
+The interactive Power BI dashboard (`dashboard/ecommerce_dashboard.pbix`) provides executive and operational views:
+
+* **Executive KPI Cards:** Total Revenue, Gross Profit, Margin %, Total Orders, Customer Count, AOV, Return Rate, Repeat Customer %
+* **Trend Analysis:** Monthly revenue performance split by year (2024 vs. 2025)
+* **Category Performance:** Revenue and profit breakdown across product categories
+* **Product Performance:** Top 10 products ranked by total revenue
+* **Customer Segmentation:** Revenue distribution across customer loyalty tiers
+* **Payment Insights:** Revenue breakdown by transaction payment method
+
+---
+
+## 📁 Repository Structure
+
+```text
+ecommerce-sales-analytics/
 │
 ├── README.md
 ├── data/
@@ -65,13 +89,3 @@ ecommerce-analytics-project/
 └── dashboard/
     ├── ecommerce_dashboard.pbix
     └── dashboard_screenshot.png
-    
-🔍 How to Reproduce
-Run sql/01_create_tables.sql to create the schema.
-Update the file paths inside sql/02_load_data.sql to point to your local copy of the files in data/raw/.
-Run sql/02_load_data.sql, then sql/03_foreign_keys.sql.
-Run the queries in sql/04_analysis_queries.sql to reproduce the analysis.
-Open dashboard/ecommerce_dashboard.pbix in Power BI Desktop and point the MySQL connection to your local instance.
-
-👤 Author
-Vanitha N GitHub · LinkedIn
